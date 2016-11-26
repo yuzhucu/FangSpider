@@ -1,4 +1,12 @@
 # -*- coding:utf-8 -*-
+############################################################################
+# 程序：上海链家网爬虫
+# 功能：抓取上海链家二手房在售、成交数据 ，大约各5万记录；小区2万多个
+# 创建时间：2016/11/26
+# 更新时间：2016/11/26
+# 使用库：Scrapy、BeautifulSoup4、MySQLdb
+# 作者：yuzhucu
+#############################################################################
 import scrapy, re, json, sys
 from bs4 import BeautifulSoup
 import time
@@ -7,19 +15,18 @@ reload(sys)
 sys.setdefaultencoding('utf-8')
 
 class LianjiaSpider(scrapy.Spider):
-    name = "lianjia2"
+    name = "lianjia"
     allowed_domains = ["http://sh.lianjia.com/"]
     start_urls = (
         'http://sh.lianjia.com/ershoufang/pudongxinqu/',
     )
-    regions=['xuhui']
+    regions=['pudongxinqu','xuhui']
     def start_requests(self,_regions=regions):
         '''需爬取的链接'''
         reqs = []
         for region in _regions:
             for i in range(1,101):
                 req = scrapy.Request("http://sh.lianjia.com/ershoufang/"+region+"/d%s"%i)
-                #print region,u'第----------------------------------------------------------------'
                 reqs.append(req)
         return reqs
 
@@ -75,16 +82,11 @@ class LianjiaSpider(scrapy.Spider):
                #   item['price'],item['price_pre'],item['col_look']#,u'房源链接:',item['fang_url']#\
                  #u'交通 :',item['subway'],u'税费:',item['taxfree'],u'钥匙:',item['haskey'],u'房源链接:',item['fang_url']
                items.append(item)
-        #print '-----Spider items----------------------------------------------------------------'
-
         #for item in items:
         #     print u'在售：', u'房源编号:',item['fang_key'],u'房源描述:',item['fang_desc'],u'房源链接:',item['fang_url'],\
         #         u'区域:',item['quyu'],u'版块:',item['bankuai'], u'楼层:',item['louceng'],u'朝向:',item['chaoxiang'],u'房龄:',item['age'],\
         #         u'小区:',item['xiaoqu'],u'户型 :', item['huxing'],u'面积:',item['mianji'],\
         #         u'总价 :',item['price'],u'单价:',item['price_pre'],u'看房人数:',item['col_look'],\
         #         u'交通 :',item['subway'],u'税费:',item['taxfree'],u'钥匙:',item['haskey']
-
-
-        #print '---------------------------------------------------------------------'
 
         return items

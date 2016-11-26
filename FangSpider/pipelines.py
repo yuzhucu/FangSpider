@@ -20,12 +20,12 @@ class FangspiderPipeline(object):
             cur.execute(sql,item_list)
         except Exception,e:
             error_count += 1
-            print getCurrentTime(),"Insert error:",error_count,e,item['fang_key'],item['quyu'] ,item['xiaoqu'] ,item['price'], item['huxing'],item['mianji']
+            print getCurrentTime(),"Insert Error Count:",error_count,e,item['fang_key'],item['quyu'] ,item['xiaoqu'] ,item['price'], item['huxing'],item['mianji']
             con.rollback()
         else:
             con.commit()
             sucess_count += 1
-            print getCurrentTime(),'sucess_count:',sucess_count,u':',  item['fang_key'],item['quyu'] ,item['xiaoqu'] ,item['price'], item['huxing'],item['mianji']
+            print getCurrentTime(),'Success Count:',sucess_count,u':',  item['fang_key'],item['quyu'] ,item['xiaoqu'] ,item['price'], item['huxing'],item['mianji']
         cur.close()
         con.close()
         return item
