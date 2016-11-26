@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
-
+############################################################################
+# 程序：上海链家网爬虫
+# 功能：抓取上海链家二手房在售大约5万记录
+# 创建时间：2016/11/26
+# 更新时间：2016/11/26
+# 使用库：Scrapy、BeautifulSoup4、MySQLdb
+# 作者：yuzhucu
+#############################################################################
 # Define your item pipelines here
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
